@@ -196,10 +196,7 @@ module.exports = function( grunt ) {
         // Analysis grunt task.
         complexity: {
             default: {
-                src: [
-                    '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
-                    '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
-                },
+                src: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
                 options: {
                     errorsOnly: false,
                     cyclomatic: 4,

@@ -191,7 +191,20 @@ module.exports = function( grunt ) {
         //    uglify_all_dev: {
         //        tasks: [ 'uglify_external', 'uglify:app_development' ]
         //    }
-        //}
+        //},
+
+        // Analysis grunt task.
+        complexity: {
+            default: {
+                src: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
+                options: {
+                    errorsOnly: false,
+                    cyclomatic: 4,
+                    halstead: 10,
+                    maintainability: 115
+                }
+            }
+        }
     });
 
     // DEPENDENT PLUGINS =========================/
@@ -233,5 +246,11 @@ module.exports = function( grunt ) {
         'bower_concat',
         'uglify:vendors'
     ]);
+
+
+    grunt.registerTask('analyze', [], function () {
+        grunt.loadNpmTasks('grunt-complexity');
+        grunt.task.run('complexity');
+    });
 
 };

@@ -19,7 +19,7 @@
 
 
 
-npm, bower, bower concat, grunt, uglify, jshint, watch, requirejs
+npm, bower, bower concat, grunt, uglify, jshint, watch, requirejs, jquery, underscore
 
 
 #WIP
@@ -29,5 +29,6 @@ npm, bower, bower concat, grunt, uglify, jshint, watch, requirejs
 ### grunt conccurence
 ### grunt clean
 ### backbone
+### templating
 ### node server
 ### api 

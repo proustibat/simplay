@@ -207,6 +207,14 @@ module.exports = function( grunt ) {
                     broadcast: false                 // broadcast data over event-bus
                 }
             }
+        },
+
+        // Open urls and files
+        open : {
+            local : {
+                path: 'http://localhost/simplay/public/',
+                app: 'Chrome'
+            }
         }
     });
 
@@ -220,15 +228,17 @@ module.exports = function( grunt ) {
     //grunt.loadNpmTasks('grunt-parallel');
 
 
+
     // TASKS =========================/
     // Default task.
     grunt.registerTask( 'prod', [
         'jshint',
 
         'uglify_external',
-        'uglify:app_production'
+        'uglify:app_production',
         //'concurrent:uglify_all_prod'
         //'parallel:uglify_all_prod'
+        'open-browser'
 
     ]);
 
@@ -244,6 +254,7 @@ module.exports = function( grunt ) {
         'watch'
     ]);
 
+
     // Concat and uglify external libraries
     grunt.registerTask( 'uglify_external', [
         'bower_concat',
@@ -251,10 +262,16 @@ module.exports = function( grunt ) {
     ]);
 
 
+    // INDEPENDENT TASKS =========================/
     // Run it to analyze js complexity (http://jscomplexity.org/complexity)
     grunt.registerTask('analyze', [], function () {
         grunt.loadNpmTasks('grunt-complexity');
         grunt.task.run('complexity');
+    });
+
+    grunt.registerTask('open-browser', [], function() {
+        grunt.loadNpmTasks('grunt-open');
+        grunt.task.run('open:local');
     });
 
 };

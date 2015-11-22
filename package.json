@@ -22,6 +22,7 @@
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-newer": "^1.1.1",
+    "grunt-open": "^0.2.3",
     "grunt-parallel": "^0.4.1",
     "jshint-stylish": "^2.1.0",
     "require": "^2.4.20",

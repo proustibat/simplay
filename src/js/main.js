@@ -1,11 +1,15 @@
 define('main',[
-    'Application'
-], function(Application){
+    'Module'
+], function(Module){
     "use strict";
 
-    $('h1').html( 'Hello World!' );
-    var app = new Application();
-    app.init( $('h2') );
+    $('h1').html( 'Hello Main!' );
+
+    var fooModule = new Module();
+    fooModule.init( $('.foo') );
+
+    var barModule = new Module();
+    barModule.init( $('.bar') );
 });
 
 

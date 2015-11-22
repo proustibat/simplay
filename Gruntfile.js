@@ -167,15 +167,31 @@ module.exports = function( grunt ) {
             }
         },
 
+        //Tunning tasks in parallel
+        //parallel: {
+        //    uglify_all_prod: {
+        //        options: {
+        //            grunt: true
+        //        },
+        //        tasks: [ 'uglify_external', 'uglify:app_production' ]
+        //    },
+        //    uglify_all_dev: {
+        //        options: {
+        //            grunt: true
+        //        },
+        //        tasks: [ 'uglify_external', 'uglify:app_development' ]
+        //    }
+        //}
+
         // Run grunt tasks concurrently
-        concurrent:{
-            uglify_all_prod: {
-                tasks: [ 'uglify_external', 'uglify:app_production' ]
-            },
-            uglify_all_dev: {
-                tasks: [ 'uglify_external', 'uglify:app_development' ]
-            }
-        }
+        //concurrent:{
+        //    uglify_all_prod: {
+        //        tasks: [ 'uglify_external', 'uglify:app_production' ]
+        //    },
+        //    uglify_all_dev: {
+        //        tasks: [ 'uglify_external', 'uglify:app_development' ]
+        //    }
+        //}
     });
 
     // DEPENDENT PLUGINS =========================/
@@ -184,8 +200,8 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-bower-concat' );
     grunt.loadNpmTasks( 'grunt-newer' );
-    grunt.loadNpmTasks( 'grunt-concurrent' );
-
+    //grunt.loadNpmTasks( 'grunt-concurrent' );
+    //grunt.loadNpmTasks('grunt-parallel');
 
 
     // TASKS =========================/
@@ -196,6 +212,7 @@ module.exports = function( grunt ) {
         'uglify_external',
         'uglify:app_production'
         //'concurrent:uglify_all_prod'
+        //'parallel:uglify_all_prod'
 
     ]);
 
@@ -206,6 +223,7 @@ module.exports = function( grunt ) {
         'uglify_external',
         'uglify:app_development',
         //'concurrent:uglify_all_dev',
+        //'parallel:uglify_all_dev',
 
         'watch'
     ]);

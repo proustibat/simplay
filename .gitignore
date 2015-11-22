@@ -2,5 +2,4 @@
 /node_modules
 /src/_lib
 /PlaySim.iml
-/public/js
-/public/vendors
+/public/js/*.map

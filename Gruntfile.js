@@ -17,12 +17,13 @@ module.exports = function( grunt ) {
     // Measures the time each task takes
     require('time-grunt')(grunt);
 
-    // Project configuration.
+    // CONFIGURATION =============================/
     grunt.initConfig({
         // Metadata.
         config: config,
         pkg: grunt.file.readJSON( config.pkgjson_file ),
         bower: grunt.file.readJSON( config.bowerrc_file ),
+        //bowerjson: grunt.file.readJSON( bower.json ),
         banner: '/*! <%= pkg.title %> - <%= pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
@@ -88,9 +89,36 @@ module.exports = function( grunt ) {
             }
         },
         uglify: {
-            app: {
+            options: {
+              banner: '<%= banner %>'
+            },
+            app_production: {
                 options: {
-                  banner: '<%= banner %>'
+                    mangle: true,
+                    sourceMap: false,
+                    preserveComments: false,
+                    compress: {
+                        drop_console: true,
+                        warnings: true,
+                        drop_debugger: true
+                    }
+                },
+                files: {
+                    '<%= config.root_public %>/<%= config.dir_js %>/<%= config.output_js_app || pkg.name + pkg.version %>.min.js': [
+                        '<%= config.root_src %>/<%= config.dir_js %>/**/*.js'
+                    ]
+                }
+            },
+            app_development: {
+                options: {
+                    banner: '',
+                    mangle: false,
+                    sourceMap: true,
+                    sourceMapIncludeSources: true,
+                    //sourceMapRoot: 'src',
+                    compress: false,
+                    beautify: true,
+                    preserveComments: 'all'
                 },
                 files: {
                     '<%= config.root_public %>/<%= config.dir_js %>/<%= config.output_js_app || pkg.name + pkg.version %>.min.js': [
@@ -99,6 +127,9 @@ module.exports = function( grunt ) {
                 }
             },
             vendors: {
+                options: {
+                  banner: ''
+                },
                 files: {
                     '<%= config.root_public %>/<%= config.dir_vendors %>/<%= config.output_js_vendors || \'vendors.min\'%>.js': [
                         '<%= bower.directory %>/_bower.js',
@@ -140,26 +171,27 @@ module.exports = function( grunt ) {
         }
     });
 
-
-    // These plugins provide necessary tasks.
+    // DEPENDENT PLUGINS =========================/
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-contrib-jshint' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-bower-concat' );
-    grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks( 'grunt-newer' );
 
     // Default task.
-    grunt.registerTask( 'default' , [
+    grunt.registerTask( 'prod' , [
         'jshint',
         'bower_concat',
         'uglify:vendors',
-        'uglify:app'
+        'uglify:app_production'
     ]);
 
     // Developer task
     grunt.registerTask( 'dev', [
-       'default',
-        'watch'
+        'jshint',
+        'bower_concat',
+        'uglify:vendors',
+        'uglify:app_development'
     ]);
 
 };

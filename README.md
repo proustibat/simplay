@@ -16,6 +16,9 @@
 	$ grunt                                  
 ### Working on the project                                 
 	$ grunt dev
+	                   
+### When work is finished
+	$ grunt prod
 
 
 
@@ -24,7 +27,6 @@ npm, bower, bower concat, grunt, uglify, jshint, watch, requirejs, jquery, under
 
 #WIP
 ##TODO
-### grunt uglify dev/prod w/ sourcemapping
 ### sass
 ### grunt conccurence
 ### grunt clean

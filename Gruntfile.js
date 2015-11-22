@@ -73,8 +73,7 @@ module.exports = function( grunt ) {
                 cssDest: '<%= bower.directory %>/_bower.css',
                 exclude: [
                     'modernizr',
-                    'almond',
-                    'requirejs'
+                    'requirejs' // will be loaded with almond
                 ],
                 dependencies: {
                     'underscore': 'jquery'/*,
@@ -133,9 +132,7 @@ module.exports = function( grunt ) {
                 files: {
                     '<%= config.root_public %>/<%= config.dir_vendors %>/<%= config.output_js_vendors || \'vendors.min\'%>.js': [
                         '<%= bower.directory %>/_bower.js',
-                        '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js',
-                        '<%= bower.directory %>/almond/almond.js',
-                        '<%= bower.directory %>/require/require.js'
+                        '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'//'<%= bower.directory %>/require/require.js'
                     ]
                 }
             }
@@ -156,7 +153,7 @@ module.exports = function( grunt ) {
             },
             app: {
                 files: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
-                tasks: ['newer:uglify:app']
+                tasks: ['newer:uglify:app_development']
             },
             vendors: {
                 files: [
@@ -191,7 +188,8 @@ module.exports = function( grunt ) {
         'jshint',
         'bower_concat',
         'uglify:vendors',
-        'uglify:app_development'
+        'uglify:app_development',
+        'watch'
     ]);
 
 };

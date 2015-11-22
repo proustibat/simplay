@@ -198,10 +198,13 @@ module.exports = function( grunt ) {
             default: {
                 src: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
                 options: {
-                    errorsOnly: false,
-                    cyclomatic: 4,
-                    halstead: 10,
-                    maintainability: 115
+                    breakOnErrors: true,
+                    errorsOnly: false,               // show only maintainability errors
+                    cyclomatic: [3, 7, 12],          // or optionally a single value, like 3
+                    halstead: [8, 13, 20],           // or optionally a single value, like 8
+                    maintainability: 100,
+                    hideComplexFunctions: false,     // only display maintainability
+                    broadcast: false                 // broadcast data over event-bus
                 }
             }
         }
@@ -248,6 +251,7 @@ module.exports = function( grunt ) {
     ]);
 
 
+    // Run it to analyze js complexity (http://jscomplexity.org/complexity)
     grunt.registerTask('analyze', [], function () {
         grunt.loadNpmTasks('grunt-complexity');
         grunt.task.run('complexity');

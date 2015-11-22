@@ -11,7 +11,10 @@ module.exports = function( grunt ) {
         pkgjson_file:       'package.json',
         bowerrc_file:       '.bowerrc',
         output_js_app:      false, //if null or false use package name and version
-        output_js_vendors:  false  // if null or false use vendors.min
+        output_js_vendors:  false,  // if null or false use vendors.min
+        host : {
+            local: "http://localhost/simplay/public"
+        }
     };
 
     // Measures the time each task takes
@@ -212,8 +215,21 @@ module.exports = function( grunt ) {
         // Open urls and files
         open : {
             local : {
-                path: 'http://localhost/simplay/public/',
+                path: '<%= config.host.local %>',
                 app: 'Chrome'
+            }
+        },
+
+        //  Keep an eye on performance metrics
+        devperf: {
+            options: {
+                urls: [
+                    '<%= config.host.local %>'
+                ],
+                numberOfRuns: 1,
+                timeout: 120,
+                openResults: true,
+                resultsFolder: './devperf'
             }
         }
     });
@@ -268,10 +284,15 @@ module.exports = function( grunt ) {
         grunt.loadNpmTasks('grunt-complexity');
         grunt.task.run('complexity');
     });
-
+    // Run it to open browser in local enironment
     grunt.registerTask('open-browser', [], function() {
         grunt.loadNpmTasks('grunt-open');
         grunt.task.run('open:local');
+    });
+    // Run it to export analysis in result folder
+    grunt.registerTask('check-perf', [], function() {
+        grunt.loadNpmTasks('grunt-devperf');
+        grunt.task.run('devperf');
     });
 
 };

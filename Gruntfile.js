@@ -98,7 +98,7 @@ module.exports = function( grunt ) {
                     preserveComments: false,
                     compress: {
                         drop_console: true,
-                        warnings: true,
+                        warnings: false,
                         drop_debugger: true
                     }
                 },
@@ -165,6 +165,16 @@ module.exports = function( grunt ) {
                 ],
                 tasks: ['newer:bower_concat', 'newer:uglify:vendors']
             }
+        },
+
+        // Run grunt tasks concurrently
+        concurrent:{
+            uglify_all_prod: {
+                tasks: [ 'uglify_external', 'uglify:app_production' ]
+            },
+            uglify_all_dev: {
+                tasks: [ 'uglify_external', 'uglify:app_development' ]
+            }
         }
     });
 
@@ -174,22 +184,36 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-bower-concat' );
     grunt.loadNpmTasks( 'grunt-newer' );
+    grunt.loadNpmTasks( 'grunt-concurrent' );
 
+
+
+    // TASKS =========================/
     // Default task.
-    grunt.registerTask( 'prod' , [
+    grunt.registerTask( 'prod', [
         'jshint',
-        'bower_concat',
-        'uglify:vendors',
+
+        'uglify_external',
         'uglify:app_production'
+        //'concurrent:uglify_all_prod'
+
     ]);
 
     // Developer task
     grunt.registerTask( 'dev', [
         'jshint',
-        'bower_concat',
-        'uglify:vendors',
+
+        'uglify_external',
         'uglify:app_development',
+        //'concurrent:uglify_all_dev',
+
         'watch'
+    ]);
+
+    // Concat and uglify external libraries
+    grunt.registerTask( 'uglify_external', [
+        'bower_concat',
+        'uglify:vendors'
     ]);
 
 };

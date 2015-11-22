@@ -1,0 +1,32 @@
+{
+  "name": "Simplay",
+  "description": "",
+  "main": "",
+  "authors": [
+    {
+      "name": "Jennifer Proust",
+      "email": "jennifer.proust@gmail.com",
+      "url": "http://www.twitter.com/@proustibat"
+    }
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/proustibat/simplay",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "jquery": "~2.1.4",
+    "almond": "~0.3.1",
+    "requirejs": "~2.1.22"
+  },
+  "devDependencies": {}
+}

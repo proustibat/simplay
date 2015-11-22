@@ -12,8 +12,10 @@ define('Module',[
                 var button = $('<button type="button">Click Me!</button>');
                 this.element.append( button );
                 $(button).on( "click", _.bind( this.onClick, this ) );
+                console.log("Module.init");
             },
             onClick: function( e ) {
+                console.log("Module.onClick");
                 e.preventDefault();
                 e.stopPropagation();
                 this.element.css({

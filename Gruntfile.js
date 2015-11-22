@@ -14,6 +14,9 @@ module.exports = function( grunt ) {
         output_js_vendors:  false  // if null or false use vendors.min
     };
 
+    // Measures the time each task takes
+    require('time-grunt')(grunt);
+
     // Project configuration.
     grunt.initConfig({
         // Metadata.
@@ -122,7 +125,7 @@ module.exports = function( grunt ) {
             },
             app: {
                 files: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
-                tasks: ['uglify:app']
+                tasks: ['newer:uglify:app']
             },
             vendors: {
                 files: [
@@ -132,7 +135,7 @@ module.exports = function( grunt ) {
                     '!<%= bower.directory %>/_bower.css',
                     '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
                 ],
-                tasks: ['bower_concat', 'uglify:vendors']
+                tasks: ['newer:bower_concat', 'newer:uglify:vendors']
             }
         }
     });
@@ -143,6 +146,7 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-jshint' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-bower-concat' );
+    grunt.loadNpmTasks('grunt-newer');
 
     // Default task.
     grunt.registerTask( 'default' , [

@@ -30,7 +30,7 @@ jshint, bower concat, uglify, watch, newer, open, parallel, concurrent, complexi
 ### backbone
 ### templating : handlebars
 ### sass : bootstrap / foundation ?
-### grunt init with grunt template
+### grunt init with grunt template / grunt config
 ### plato
 ### phantomas
 ### responsive-image

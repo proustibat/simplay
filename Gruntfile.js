@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
         output_js_app:      false, //if null or false use package name and version
         output_js_vendors:  false,  // if null or false use vendors.min
         host : {
-            local: "http://localhost/simplay/public"
+            local: 'http://localhost/simplay/public'
         }
     };
 
@@ -86,8 +86,7 @@ module.exports = function( grunt ) {
                 bowerOptions: {
                     relative: false
                 },
-                mainFiles: {
-                }
+                mainFiles: {}
             }
         },
         uglify: {

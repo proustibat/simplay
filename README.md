@@ -13,7 +13,7 @@
 ### The first time
 	$ bower install                         
 	$ npm install                          
-	$ grunt                                  
+
 ### Working on the project                                 
 	$ grunt dev
 	                   
@@ -22,15 +22,22 @@
 
 
 
-npm, bower, bower concat, grunt, uglify, jshint, watch, requirejs, jquery, underscore
-
+npm, bower, grunt, requirejs, almond, jquery, underscore
+jshint, bower concat, uglify, watch, newer, open, parallel, concurrent, complexity, devperf, time-grunt
 
 #WIP
 ##TODO
-### sass
-### grunt conccurence
-### grunt clean
 ### backbone
-### templating
+### templating : handlebars
+### sass : bootstrap / foundation ?
+### grunt init with grunt template
+### plato
+### phantomas
+### responsive-image
+### smushit / tinypng / imagemin / imageoptim / svgmin
+### webfont / grunticon
+### rev / release / version
+### gitbook / jsdoc
+### nodeunit / sinon 
 ### node server
 ### api 

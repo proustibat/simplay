@@ -132,7 +132,7 @@ module.exports = function( grunt ) {
                 files: {
                     '<%= config.root_public %>/<%= config.dir_vendors %>/<%= config.output_js_vendors || \'vendors.min\'%>.js': [
                         '<%= bower.directory %>/_bower.js',
-                        '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'//'<%= bower.directory %>/require/require.js'
+                        '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
                     ]
                 }
             }
@@ -196,7 +196,10 @@ module.exports = function( grunt ) {
         // Analysis grunt task.
         complexity: {
             default: {
-                src: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
+                src: [
+                    '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
+                    '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
+                },
                 options: {
                     errorsOnly: false,
                     cyclomatic: 4,

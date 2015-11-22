@@ -10,11 +10,12 @@ module.exports = function( grunt ) {
         gruntfile:          'Gruntfile.js',
         pkgjson_file:       'package.json',
         bowerrc_file:       '.bowerrc',
+        dir_grunt:          './grunt',
         output_js_app:      false, //if null or false use package name and version
         output_js_vendors:  false,  // if null or false use vendors.min
         host : {
             local: 'http://localhost/simplay/public'
-        }
+        },
     };
 
     // Measures the time each task takes
@@ -33,204 +34,28 @@ module.exports = function( grunt ) {
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
         ' Licensed <%= pkg.license %> */\n',
 
-        // Task configuration.
-        jshint: {
-            options: {
-                reporter: require( 'jshint-stylish' ),
-                debug: true,
-                force: true,
-                curly: true,
-                eqeqeq: true,
-                forin: true,
-                freeze: true,
-                futurehostile: true,
-                latedef: true,
-                maxdepth: 3,
-                maxerr: 20,
-                maxparams: 3,
-                noarg: true,
-                nocomma: true,
-                nonbsp: true,
-                nonew: true,
-                unused: true,
-                boss: true,
-                eqnull: true,
-                plusplus: true
-                //undef: true,
-                //globals: {
-                //    devel: true,
-                //    jQuery: false,
-                //    requirejs: false
-                //},
-                //predef: ["require"],
-            },
-            files: [
-                '<%= config.gruntfile %>',
-                '<%= config.root_src %>/<%= config.dir_js %>/**/*.js'
-            ]
-        },
-
-        bower_concat: {
-            all: {
-                dest: '<%= bower.directory %>/_bower.js',
-                cssDest: '<%= bower.directory %>/_bower.css',
-                exclude: [
-                    'modernizr',
-                    'requirejs' // will be loaded with almond
-                ],
-                dependencies: {
-                    'underscore': 'jquery'/*,
-                     'backbone': 'underscore',*/
-                },
-                includeDev: true,
-                bowerOptions: {
-                    relative: false
-                },
-                mainFiles: {}
-            }
-        },
-        uglify: {
-            options: {
-              banner: '<%= banner %>'
-            },
-            app_production: {
-                options: {
-                    mangle: true,
-                    sourceMap: false,
-                    preserveComments: false,
-                    compress: {
-                        drop_console: true,
-                        warnings: false,
-                        drop_debugger: true
-                    }
-                },
-                files: {
-                    '<%= config.root_public %>/<%= config.dir_js %>/<%= config.output_js_app || pkg.name + pkg.version %>.min.js': [
-                        '<%= config.root_src %>/<%= config.dir_js %>/**/*.js'
-                    ]
-                }
-            },
-            app_development: {
-                options: {
-                    banner: '',
-                    mangle: false,
-                    sourceMap: true,
-                    sourceMapIncludeSources: true,
-                    //sourceMapRoot: 'src',
-                    compress: false,
-                    beautify: true,
-                    preserveComments: 'all'
-                },
-                files: {
-                    '<%= config.root_public %>/<%= config.dir_js %>/<%= config.output_js_app || pkg.name + pkg.version %>.min.js': [
-                        '<%= config.root_src %>/<%= config.dir_js %>/**/*.js'
-                    ]
-                }
-            },
-            vendors: {
-                options: {
-                  banner: ''
-                },
-                files: {
-                    '<%= config.root_public %>/<%= config.dir_vendors %>/<%= config.output_js_vendors || \'vendors.min\'%>.js': [
-                        '<%= bower.directory %>/_bower.js',
-                        '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
-                    ]
-                }
-            }
-        },
-
-
-        watch: {
-            options: {
-                forever: false
-            },
-            configs: {
-                files: [
-                    '<%= config.gruntfile %>'
-                ],
-                options: {
-                    reload: true
-                }
-            },
-            app: {
-                files: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
-                tasks: ['newer:uglify:app_development']
-            },
-            vendors: {
-                files: [
-                    '<%= bower.directory %>/**/*.js',
-                    '!<%= bower.directory %>/_bower.js',
-                    '<%= bower.directory %>/**/*.css',
-                    '!<%= bower.directory %>/_bower.css',
-                    '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
-                ],
-                tasks: ['newer:bower_concat', 'newer:uglify:vendors']
-            }
-        },
+        // Individual configurations.
+        jshint:         require( config.dir_grunt + '/jshint'),
+        bower_concat:   require( config.dir_grunt + '/bower_concat'),
+        uglify:         require( config.dir_grunt + '/uglify'),
+        watch:          require( config.dir_grunt + '/watch'),
 
         //Tunning tasks in parallel
-        //parallel: {
-        //    uglify_all_prod: {
-        //        options: {
-        //            grunt: true
-        //        },
-        //        tasks: [ 'uglify_external', 'uglify:app_production' ]
-        //    },
-        //    uglify_all_dev: {
-        //        options: {
-        //            grunt: true
-        //        },
-        //        tasks: [ 'uglify_external', 'uglify:app_development' ]
-        //    }
-        //}
+        //parallel: require( config.dir_grunt + '/parallel' ),
 
         // Run grunt tasks concurrently
-        //concurrent:{
-        //    uglify_all_prod: {
-        //        tasks: [ 'uglify_external', 'uglify:app_production' ]
-        //    },
-        //    uglify_all_dev: {
-        //        tasks: [ 'uglify_external', 'uglify:app_development' ]
-        //    }
-        //},
+        //concurrent: require( config.dir_grunt + '/concurrent' ),
 
         // Analysis grunt task.
-        complexity: {
-            default: {
-                src: '<%= config.root_src %>/<%= config.dir_js %>/**/*.js',
-                options: {
-                    breakOnErrors: true,
-                    errorsOnly: false,               // show only maintainability errors
-                    cyclomatic: [3, 7, 12],          // or optionally a single value, like 3
-                    halstead: [8, 13, 20],           // or optionally a single value, like 8
-                    maintainability: 100,
-                    hideComplexFunctions: false,     // only display maintainability
-                    broadcast: false                 // broadcast data over event-bus
-                }
-            }
-        },
+        complexity: require( config.dir_grunt + '/complexity' ),
 
         // Open urls and files
-        open : {
-            local : {
-                path: '<%= config.host.local %>',
-                app: 'Chrome'
-            }
-        },
+        open: require( config.dir_grunt + '/open' ),
+
 
         //  Keep an eye on performance metrics
-        devperf: {
-            options: {
-                urls: [
-                    '<%= config.host.local %>'
-                ],
-                numberOfRuns: 1,
-                timeout: 120,
-                openResults: true,
-                resultsFolder: './devperf'
-            }
-        }
+        devperf: require( config.dir_grunt + '/devperf' )
+
     });
 
     // DEPENDENT PLUGINS =========================/

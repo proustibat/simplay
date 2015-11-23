@@ -1,6 +1,6 @@
 /*global module:false*/
 module.exports = function( grunt ) {
-
+    'use strict';
     var config = {
         root_src:           'src',
         root_public:        'public',
@@ -35,6 +35,7 @@ module.exports = function( grunt ) {
         ' Licensed <%= pkg.license %> */\n',
 
         // Individual configurations.
+
         jshint:         require( config.dir_grunt + '/jshint'),
         bower_concat:   require( config.dir_grunt + '/bower_concat'),
         uglify:         require( config.dir_grunt + '/uglify'),

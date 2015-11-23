@@ -14,5 +14,6 @@ define('main',[
 
 
 $(document).ready(function() {
+    'use strict';
     require( ['main'] );
 });

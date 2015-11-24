@@ -15,7 +15,7 @@ module.exports = function( grunt ) {
         output_js_vendors:  false,  // if null or false use vendors.min
         host : {
             local: 'http://localhost/simplay/public'
-        },
+        }
     };
 
     // Measures the time each task takes

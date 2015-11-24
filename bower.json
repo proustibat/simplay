@@ -25,10 +25,9 @@
   "dependencies": {
     "underscore": "~1.8.3",
     "jquery": "~2.1.4",
-    "almond": "~0.3.1",
-    "requirejs": "~2.1.22"
-  },
-  "devDependencies": {
+    "requirejs": "~2.1.22",
+    "backbone": "~1.2.3",
     "almond": "~0.3.1"
-  }
+  },
+  "devDependencies": {}
 }

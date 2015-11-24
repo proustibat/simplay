@@ -5,7 +5,8 @@ module.exports = {
     },
     configs: {
         files: [
-            '<%= config.gruntfile %>'
+            '<%= config.gruntfile %>',
+            '<%= config.dir_grunt %>/**/*.js'
         ],
         options: {
             reload: true
@@ -23,6 +24,6 @@ module.exports = {
             '!<%= bower.directory %>/_bower.css',
             '<%= config.root_src %>/<%= config.dir_vendors %>/**/*.js'
         ],
-        tasks: ['newer:bower_concat', 'newer:uglify:vendors']
+        tasks: ['newer:bower_concat:dev', 'newer:uglify:vendors_dev']
     }
 };

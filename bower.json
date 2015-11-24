@@ -1,5 +1,5 @@
 {
-  "name": "Simplay",
+  "name": "Boilerbat",
   "description": "",
   "main": "",
   "authors": [
@@ -11,14 +11,11 @@
   ],
   "license": "GPL-3.0",
   "homepage": "https://github.com/proustibat/simplay",
-  "moduleType": [
-    "amd",
-    "globals"
-  ],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "src/_lib",
     "test",
     "tests"
   ],

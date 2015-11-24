@@ -1,9 +1,9 @@
 define('main',[
-    'Module'
+    'app/module'
 ], function(Module){
     "use strict";
 
-    $('h1').html( 'Hello Main!' );
+    $('h1').html( 'Hello Main !' );
 
     var fooModule = new Module();
     fooModule.init( $('.foo') );

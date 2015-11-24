@@ -1,19 +1,26 @@
 'use strict';
 module.exports = {
-    all: {
+    dev: {
         dest: '<%= bower.directory %>/_bower.js',
-        cssDest: '<%= bower.directory %>/_bower.css',
+        cssDest: '<%= config.root_public %>/<%= config.dir_css %>/bower.css',
         exclude: [
-            'modernizr',
-            'requirejs' // will be loaded with almond
+            'almond'
         ],
         dependencies: {
-            'underscore': 'jquery'/*,
-             'backbone': 'underscore',*/
+            'underscore': 'jquery'
         },
-        includeDev: true,
-        bowerOptions: {
-            relative: false
+        mainFiles: {}
+    },
+
+    prod: {
+        dest: '<%= bower.directory %>/_bower.js',
+        cssDest: '<%= config.root_public %>/<%= config.dir_css %>/bower.css',
+        exclude: [
+            'almond',
+            'requirejs'
+        ],
+        dependencies: {
+            'underscore': 'jquery'
         },
         mainFiles: {}
     }

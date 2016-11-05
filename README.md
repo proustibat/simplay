@@ -27,17 +27,17 @@ jshint, bower concat, uglify, watch, newer, open, parallel, concurrent, complexi
 
 #WIP
 ##TODO
-### backbone
-### templating : handlebars
-### sass : bootstrap / foundation ?
-### grunt init with grunt template / grunt config
-### plato
-### phantomas
-### responsive-image
-### smushit / tinypng / imagemin / imageoptim / svgmin
-### webfont / grunticon
-### rev / release / version
-### gitbook / jsdoc
-### nodeunit / sinon 
-### node server
-### api 
+- backbone
+- templating : handlebars
+- sass : bootstrap / foundation ?
+- grunt init with grunt template / grunt config
+- plato
+- phantomas
+- responsive-image
+- smushit / tinypng / imagemin / imageoptim / svgmin
+- webfont / grunticon
+- rev / release / version
+- gitbook / jsdoc
+- nodeunit / sinon 
+- node server
+- api 
